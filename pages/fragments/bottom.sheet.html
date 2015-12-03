@@ -1,0 +1,29 @@
+<script>
+function logout(){
+    window.localStorage.removeItem("loggedIn");
+    window.localStorage.removeItem("firstName");
+    window.localStorage.removeItem("lastName");
+    window.localStorage.removeItem("email");
+    window.top.location="../../index.html";
+}
+</script>
+<div class='row around-xs'>
+	<div class='col-xs-auto'>
+		<a href='#' class='ui-bottom-sheet-link ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'>
+            <i class='zmdi zmdi-help zmd-2x'></i>
+            <strong>Help</strong>
+        </a>
+	</div>
+	<div class='col-xs-auto'>
+		<a href='../elements/contact.html' class='ui-bottom-sheet-link ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'>
+            <i class='zmdi zmdi-email-open zmd-2x'></i>
+            <strong>Contact</strong>
+        </a>
+	</div>
+	<div class='col-xs-auto'>
+		<a href="../elements/logout.html" class='ui-bottom-sheet-link ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button' data-ajax='false'>
+            <i class='zmdi zmdi-close-circle zmd-2x'></i>
+            <strong>Logout</strong>
+        </a>
+	</div>
+</div>

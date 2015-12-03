@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Suggest</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.color.green.css" />
+        <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyClcQcwGq_-YzncQhADtZXFH_M2os0J7pQ"></script>
+        <style>
+            /* Prevent FOUC */
+            body { opacity: 0; margin:0; padding:0; }
+        </style>
+        <script>
+             function check(){
+                    if(window.localStorage.getItem("loggedIn") != 1) {
+                            // Not Logged In
+                            // Redirect to login page.
+                            location="../../index.html";
+                    }
+                    else{
+                            var firstName = window.localStorage.getItem("firstName");
+                            var lastName = window.localStorage.getItem("lastName");
+                            var email = window.localStorage.getItem("email");
+                            document.getElementById("userPar").innerHTML= firstName+" "+lastName;
+                            document.getElementById("userEmail").innerHTML= email;
+                    }
+            }
+        </script>
+	</head>
+	<body onload="setDate()">
+		<div data-role="page" onclick="check(), verifApi()">
+			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
+			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
+			</div>
+			<div data-role="header" data-position="fixed" class="wow fadeIn">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
+				<h1 class="wow fadeIn">SUGGEST</h1>
+			</div>
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" style="display:block;position:absolute;left:0;height:80%;width:90%;margin-left:auto;margin-right:auto;">
+                <form ng-app="">
+                        <label for="dateTravel">Date:</label>
+                        <input type="date" name="inputDate" id="dateTravel" value="" data-clear-btn="true">
+                        <div id="travel">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureTravel">Departure: </label>
+                                    <input type="text" id="departureTravel" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeTravel">Time:</label>
+                                    <input type="time" name="inputTime" id="timeTravel" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentTravel">Appointment Address:</label>
+                            <input type="text" id="appointmentTravel" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <!--Ride 1-->
+                        <div id="ride1" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureRide1">Ride 1 Departure:</label>
+                                    <input type="text" id="departureRide1" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeRide1">Time:</label>
+                                    <input type="time" name="inputTime" id="timeRide1" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentRide1">Ride 1 Appointment Address:</label>
+                            <input type="text" id="appointmentRide1" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <!--Ride 2-->
+                        <div id="ride2" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureRide2">Ride 2 Departure:</label>
+                                    <input type="text" id="departureRide2" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeRide2">Time:</label>
+                                    <input type="time" name="inputTime" id="timeRide2" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentRide2">Ride 2 Appointment Address:</label>
+                            <input type="text" id="appointmentRide2" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <!--Ride 3-->
+                        <div id="ride3" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureRide3">Ride 3 Departure:</label>
+                                    <input type="text" id="departureRide3" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeRide3">Time:</label>
+                                    <input type="time" name="inputTime" id="timeRide3" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentRide3">Ride 3 Appointment Address:</label>
+                            <input type="text" id="appointmentRide3" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <!--Ride 4-->
+                        <div id="ride4" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureRide4">Ride 4 Departure:</label>
+                                    <input type="text" id="departureRide4" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeRide4">Time:</label>
+                                    <input type="time" name="inputTime" id="timeRide4" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentRide4">Ride 4 Appointment Address:</label>
+                            <input type="text" id="appointmentRide4" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <!--Ride 5-->
+                        <div id="ride5" style="display:none;">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <label for="departureRide5">Ride 5 Departure:</label>
+                                    <input type="text" id="departureRide5" data-clear-btn="true" autocomplete="on" placeholder="">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="timeRide5">Time:</label>
+                                    <input type="time" name="inputTime" id="timeRide5" value="" data-clear-btn="true">
+                                </div>
+                            </div>
+                            <label for="appointmentRide5">Ride 5 Appointment Address:</label>
+                            <input type="text" id="appointmentRide5" data-clear-btn="true" autocomplete="on" placeholder="">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <a href="#" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary" style="margin-left:auto;margin-right:auto;display:inline;" id="addRide" onclick="addRide()"><i class='zmdi zmdi-plus zmd-1x'></i></a>
+                            </div>
+                            <div class="col-xs-2">
+                                <a href="#" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary" style="margin-left:auto;margin-right:auto;display:none;" id="deleteRide" onclick="deleteRide()"><i class='zmdi zmdi-minus zmd-1x'></i></a>
+                            </div>
+                            <div class="col-xs-8"></div>
+                        </div>
+                    <br>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <label for="arrivalTravel">Arrival:</label>
+                                <input type="text" id="arrivalTravel" data-clear-btn="true" autocomplete="on" placeholder="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="arrivalTravelTime">Time:</label>
+                                <input type="time" name="inputTimeArrival" id="arrivalTravelTime" value="" data-clear-btn="true">
+                            </div>
+                        </div>
+                    <br>
+                    <h6 style="color:red;text-align: center" id="errorMessage"></h6>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" class="ui-btn ui-btn-raised clr-primary" style="width:40%;display:block;margin-left:auto;margin-right:5px;" onclick="nextStep()">NEXT</a>
+                        </div>
+                    </div>
+                    
+                    
+                </form>
+			</div>
+		</div>
+        <script src="../../js/carPoolSuggest.js"></script>
+        <script src="../../js/verifApi.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<script src="../../js/jquery.mobile.min.js"></script>
+		<script src="../../vendor/waves/waves.min.js"></script>
+		<script src="../../vendor/wow/wow.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+		<script src="../../nd2settings.js"></script>
+
+	</body>
+</html>

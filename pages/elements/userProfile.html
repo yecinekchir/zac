@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>CarPool | Profile</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.color.blue.css" />
+        <script src="../../js/aes.js"></script>
+        <style>
+            /* Prevent FOUC */
+            body { opacity: 0; margin:0; padding:0; }
+        </style>
+        <script>
+             function check(){
+                    if(window.localStorage.getItem("loggedIn") != 1) {
+                            // Not Logged In
+                            // Redirect to login page.
+                            location="../../index.html";
+                    }
+                    else{
+                            var firstName = window.localStorage.getItem("firstName");
+                            var lastName = window.localStorage.getItem("lastName");
+                            var email = window.localStorage.getItem("email");
+                            document.getElementById("userPar").innerHTML= firstName+" "+lastName;
+                            document.getElementById("userEmail").innerHTML= email;
+                            document.getElementById("userFirstName").value= firstName;
+                            document.getElementById("userLastName").value= lastName;
+                            document.getElementById("userEmailField").value= email;
+                        
+                    }
+            }
+        </script>
+	</head>
+	<body onload="setParam()">
+		<div data-role="page" onclick="check(), verifApi()">
+			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
+			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
+			</div>
+			<div data-role="header" data-position="fixed" class="wow fadeIn">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
+				<h1 class="wow fadeIn">PROFILE</h1>
+			</div>
+			<div role="main" class="ui-content wow fadeIn" data-inset="false">
+                <form style="width:95%;margin-left:auto;margin-right:auto;">
+                    <div class="nd2-card">
+                        <div class="card-title has-supporting-text">
+                            <form>
+                                <div class="box">
+                                    <label for="userFirstName">First name : </label>
+                                <input type="text" name="firstName" id="userFirstName" value="" data-clear-btn="true" placeholder="" readonly>
+                                <label for="userLastName">Last name : </label>
+                                <input type="text" name="lastName" id="userLastName" value="" data-clear-btn="true" placeholder="" readonly>
+                                <label for="userEmailField">Email : </label>
+                                <input type="email" name="inputEmail" id="userEmailField" value="" data-clear-btn="true" placeholder="" readonly>
+                                <label for="userPassword">Password : </label>
+                                <input type="password" name="password" id="userPassword" value="" data-clear-btn="true" placeholder="" readonly>
+                                    <a><h6 style="font-size:x-small;color: #2196F3" onclick="showPassword()" id="showPasswordText">Show password</h6></a>
+                                    <h5 style="font-size:small;color:#4CAF50" id="statusOk"></h5>
+                                    <h5 style="font-size:small;color:red" id="statusKo"></h5>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-action">
+                                <label for="flip2b">Enable editing:</label>
+                                <select name="flip" id="flip2b" data-role="flipswitch" onchange="writeActivation(this.value)">
+                                    <option value="off">Off</option>
+                                    <option value="on">On</option>
+                                </select> 
+                            <div class="row between-xs">
+                                <div class="col-xs-4">
+                                    <div class="box">
+                                    </div>
+                                </div>
+                                <div class="col-xs-8 align-right">
+                                    <div class="box">
+                                        <a href="#" class="ui-btn ui-btn-inline" onclick="update()">Update</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+			</div>
+		</div>
+        <script src="../../js/verifApi.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<script src="../../js/jquery.mobile.min.js"></script>
+		<script src="../../vendor/waves/waves.min.js"></script>
+		<script src="../../vendor/wow/wow.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+		<script src="../../nd2settings.js"></script>
+        <script>
+            var showPasswordVar = 0;
+            
+            function setParam(){
+                var firstName = window.localStorage.getItem("firstName");
+                var lastName = window.localStorage.getItem("lastName");
+                var email = window.localStorage.getItem("email");
+                var password = window.localStorage.getItem("_em");
+                var decrypted = CryptoJS.AES.decrypt(password, "yassinekchir");
+                document.getElementById("userFirstName").value = firstName;
+                document.getElementById("userLastName").value = lastName;
+                document.getElementById("userEmailField").value = email;
+                document.getElementById("userPassword").value = decrypted.toString(CryptoJS.enc.Utf8);
+            }
+            
+            function writeActivation(flipValue){
+                if(flipValue == "on"){
+                    document.getElementById("userFirstName").readOnly = false;
+                    document.getElementById("userLastName").readOnly = false;
+                    document.getElementById("userEmailField").readOnly = false;
+                    document.getElementById("userPassword").readOnly = false;
+                }
+                if(flipValue == "off"){
+                    document.getElementById("userFirstName").readOnly = true;
+                    document.getElementById("userLastName").readOnly = true;
+                    document.getElementById("userEmailField").readOnly = true;
+                    document.getElementById("userPassword").readOnly = true;
+                }
+            }
+            
+            function showPassword(){
+                if(showPasswordVar == 0){
+                    document.getElementById("userPassword").setAttribute('type', 'text');
+                    document.getElementById("showPasswordText").innerHTML = "Hide password";
+                    showPasswordVar = 1;
+                    return;
+                }
+                if(showPasswordVar == 1){
+                    document.getElementById("userPassword").setAttribute('type', 'password');
+                    document.getElementById("showPasswordText").innerHTML = "Show password";
+                    showPasswordVar = 0;
+                    return;
+                }
+                
+                
+            }
+            
+            function update(){
+                var firstName = document.getElementById("userFirstName").value;
+                if(firstName == ""){
+                    document.getElementById("statusOk").innerHTML = "";
+                    document.getElementById("statusKo").innerHTML = "Please verify your first Name.";
+                    return;
+                }
+                var lastName = document.getElementById("userLastName").value;
+                if(lastName == ""){
+                    document.getElementById("statusOk").innerHTML = "";
+                    document.getElementById("statusKo").innerHTML = "Please verify your last Name.";
+                    return;
+                }
+                var email = document.getElementById("userEmailField").value;
+                if(validateEmail(email)==false){
+                    document.getElementById("statusOk").innerHTML = "";
+                    document.getElementById("statusKo").innerHTML = "Please verify your email.";
+                    return;
+                }
+                var password = document.getElementById("userPassword").value;
+                if(password.length<6){
+                    document.getElementById("statusOk").innerHTML = "";
+                    document.getElementById("statusKo").innerHTML = "Your password should contain at least 6 characters.";
+                    return;
+                }
+                var apiKey = window.localStorage.getItem("apiKey");
+                dataRequest = "apiKey="+apiKey+"&firstName="+firstName+"&lastName="+lastName+"&password="+password+"&email="+email;
+                updateJsonP(dataRequest,apiKey,firstName,lastName,password,email);
+            }
+            function updateJsonP(dataRequest,apiKey,firstName,lastName,password,email){
+            $.ajax
+            ({
+              url: "http://158.64.4.246:8080/zac-emovin-1.0-SNAPSHOT/api/v1/user/update/jsonp?"+dataRequest,
+              type: "GET",
+              jsonpCallback: 'jsonCallback',
+              contentType: 'application/json',
+              dataType: 'jsonp',
+              async: false,
+              success: function(data) {
+                  if(data.status == true){
+                        if(data.code == "1004"){
+                            window.localStorage.setItem("firstName",firstName);
+                            window.localStorage.setItem("lastName",lastName);
+                            window.localStorage.setItem("email",email);
+                            window.localStorage.setItem("apiKey",apiKey);
+                            var encrypted = CryptoJS.AES.encrypt(password, "yassinekchir");
+                            window.localStorage.setItem("_em", encrypted);
+                            document.getElementById("statusKo").innerHTML = "";
+                            document.getElementById("statusOk").innerHTML = "Update success";
+                            document.getElementById("userFirstName").value = firstName;
+                            document.getElementById("userLastName").value = lastName;
+                            document.getElementById("userEmailField").value = email;
+                            document.getElementById("userPassword").value = password;
+                        }
+                        else{
+                            document.getElementById("statusOk").innerHTML = "";
+                            document.getElementById("statusKo").innerHTML = "Update fail";
+                        }
+                  }
+                  else{
+                      if(data.code == "1006"){
+                            document.getElementById("statusOk").innerHTML = "";
+                            document.getElementById("statusKo").innerHTML = "This email is already used";
+                      }
+                      else{
+                            document.getElementById("statusOk").innerHTML = "";
+                            document.getElementById("statusKo").innerHTML = "Update fail";
+                      }
+                  }
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                  console.log(jqXHR);
+                  document.getElementById("statusOk").innerHTML = "";
+                  document.getElementById("statusKo").innerHTML = "Update fail";
+
+              }
+              })
+            }
+            function validateEmail(email) {
+                var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                return re.test(email);
+            }
+        </script>
+	</body>
+</html>

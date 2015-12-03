@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Zac eMovin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.color.green.css" />
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<script src="../../js/jquery.mobile.min.js"></script>
+        <style>
+            /* Prevent FOUC */
+            body { opacity: 0; margin:0; padding:0; }
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: none;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 99;
+                text-align: center;
+            }
+
+            #loading-image {
+                position: absolute;
+                top: 300px;
+                display: block;
+                margin-left: 43%;
+                margin-right: auto;
+                z-index: 100;
+            }
+        </style>
+        <script>
+
+        </script>
+	</head>
+	<body onload="showData()">
+		<div data-role="page" onclick="check(), verifApi()">
+			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
+			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
+			</div>
+			<div data-role="header" data-position="fixed">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
+				<h1>SUGGEST</h1>
+			</div>
+			<div role="main" style="width:95%;margin-left:auto;margin-right:auto;">
+                <br>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label for="carManufactor">Car Name:</label>
+                        <select name="select-choice-1" id="carManufactor" onchange="modelLoad()">
+                            <option value="unkown" selected>--</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="carModel">Car Model:</label>
+                        <select name="select-choice-1" id="carModel"">
+                            <option value="unkown" selected>--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <label for="carColor">Car Color:</label>
+                        <input type="text" id="carColor">
+                    </div>
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-5">
+                        <label for="nbrePlaces">Number of places:</label>
+                        <input type="number" id="nbrePlaces">
+                    </div>
+                </div>
+                <label for="price">Price:</label>
+                <input type="number" id="price">
+                  <fieldset data-role="controlgroup"    data-mini="true">
+                        <legend>Allow:</legend>
+                        <input type="checkbox" name="checkbox-1a" id="bags" checked="">
+                        <label for="bags">Bags</label>
+                        <input type="checkbox" name="checkbox-5a" id="break">
+                        <label for="break">Break</label>
+                    </fieldset>
+                    <label for="addOpt">Additional Option:</label>
+                    <textarea cols="40" rows="8" name="textarea2" id="addOpt"></textarea>
+                <br>
+                <h6 style="color:red;text-align: center" id="errorMessage"></h6>
+                <div id="loading">
+                    <img id="loading-image" src="../../img/466.GIF" alt="Loading..." />
+                </div>
+                <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="#" class="ui-btn ui-btn-raised clr-primary" style="width:40%;display:block;margin-left:5px;margin-right:auto;" onclick="back()">BACK</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" class="ui-btn ui-btn-raised clr-primary" style="width:40%;display:block;margin-left:auto;margin-right:5px;" onclick="validate()">OK</a>
+                        </div>
+                    </div>
+			</div>
+		</div>
+		<script src="../../vendor/waves/waves.min.js"></script>
+		<script src="../../vendor/wow/wow.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+        <script src="../../js/verifApi.js"></script>
+		<script src="../../nd2settings.js"></script>
+		<script src="../../js/carPoolSuggestStep2.js"></script>
+	</body>
+</html>

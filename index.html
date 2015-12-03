@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <script>
+            function check(){
+                if(window.localStorage.getItem("loggedIn") == 1) {
+                    window.top.location="pages/elements/carShareHome.html";
+                }
+                else{
+                    window.top.location="pages/elements/login.html";
+                }
+            }
+        </script>
+	</head>
+	<body onload="check()">
+	</body>
+</html>

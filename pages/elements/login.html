@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Zac eMovin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+        <link rel="stylesheet" href="../../css/nativedroid2.color.blue.css" />
+		<meta name="mobile-web-app-capable" content="yes">
+	 	<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        		<script src="../../js/jquery.min.js"></script>
+        <script src="../../js/aes.js"></script>
+        <script>
+            function check(){
+                if(window.localStorage.getItem("loggedIn") == 1) {
+                    location="CarShareHome.html";
+                }
+            }
+            $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var email = $("#username").val();
+                var password = $("#password").val();
+                var dataReq = "email="+email+"&password="+password;
+                console.log(email+" "+password);
+                authenticate(dataReq);
+            });
+        });
+        function authenticate(dataReq) {
+            $.ajax
+            ({
+                url: "http://158.64.4.246:8080/zac-emovin-1.0-SNAPSHOT/api/v1/user/login/jsonp?"+dataReq,
+                type: "GET",
+                jsonpCallback: 'jsonCallback',
+                contentType: 'application/json',
+                dataType: 'jsonp',
+                async: false,
+                success: function(data)
+                {
+                    console.log(data);
+
+                    if(data.status==true) {
+                        console.log(data.apiKey);
+                        window.localStorage.setItem("loggedIn", 1);
+                        window.localStorage.setItem("firstName", data.firstName);
+                        window.localStorage.setItem("lastName", data.lastName);
+                        window.localStorage.setItem("email", data.email);
+                        window.localStorage.setItem("apiKey", data.apiKey);
+                        var password = $("#password").val();
+                        var encrypted = CryptoJS.AES.encrypt(password, "yassinekchir");
+                        window.localStorage.setItem("_em", encrypted);
+                        location="carShareHome.html";
+                    }
+                    else{$("#popupDialog").popup("open");}
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    $("#popupDialog").popup("open");
+                    console.log("Echec de connexion");
+                }
+                })
+        }
+        </script>
+	</head>
+	<body onload="check()">
+        <div data-role="page" class="nd2-no-menu-swipe" style="background-color:#3575b3; background-image: url(../../img/log.png);background-repeat: no-repeat; background-position:top;">
+            <div style="width:80%;height:auto;margin-left:10%;margin-top:250px">
+                    <label for="inputEmail" style="color:white;font-size:20px;">Login</label>
+                    <input type="email" name="id" id="username" value="john.lennon@list.lu" data-clear-btn="true" style="background-color:#3575b3;color:white;text-decoration:none;">
+                    <label for="password" style="color:white;font-size:20px;">Password</label>
+                    <input type="password" name="pass" id="password" value="johnlennon" data-clear-btn="true" style="background-color:#3575b3;color:white;text-decoration: none;">
+                    <div style="width:50%;bottom: 0; right:0;left:60px;background-color:white;border-radius:3%;display:block;margin-left:auto;margin-right:auto;margin-top:50px;">
+                        <input type="button" data-rel="popup" data-transition="pop" id="btnSubmit" class="ui-btn clr-primary" value="Login" style="background-color:white; color:#3575b3" >
+                    </div>
+            </div>
+            <div data-role="popup" id="popupDialog">
+                <div data-role="header">
+                    <h1 class='nd-title'>Authentification Failure</h1>
+                </div>
+                <div data-role="content">
+                    <p>Please verify your login or your password</p>
+                    <a href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-btn-primary">Retry</a>
+                </div>
+            </div>
+		</div>
+		<script src="../../js/jquery.mobile.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+		<script src="../../nd2settings.js"></script>
+	</body>
+</html>

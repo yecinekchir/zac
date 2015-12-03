@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>eMovin | Map Page</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.color.blue.css" />
+        <script src="../../js/jquery.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+        <script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
+        <style>
+          body { margin:0; padding:0; }
+          #map { position:fixed; top:0; bottom:0; width:100%; }
+          #control {background:#2196F3;position:absolute;top:-5px;right:10px;z-index:100;border-radius:3px;border: 2px solid #2196F3;}
+          .labelMap { font-size: xx-small; }
+        </style>
+    </head>
+    <body onload="showData();showStations();getLocation()">
+        <div class="row">
+            <div class="col-xs-6">
+            </div>
+            <div class="col-xs-6">
+                <fieldset data-role="controlgroup" data-mini="true" id="control">
+                        <input type="checkbox" name="checkbox-1a" id="station" checked="" onchange="getCheck()">
+                        <label for="station" style="font-size: x-small;">Stations</label>
+                        <input type="checkbox" name="checkbox-2a" id="charge" onchange="getCheck()" checked="">
+                        <label for="charge" style="font-size: x-small;">Charging stations</label>
+                        <input type="checkbox" name="checkbox-3a" id="position" onchange="getCheck()" checked="">
+                        <label for="position" style="font-size: x-small;">My position</label>
+                    </fieldset>
+            </div>
+        </div>
+        <div id='map'></div>
+        <script src="../../js/carShareMap.js"></script>
+        <script src="../../js/nativedroid2.js"></script>
+        <script src="../../js/jquery.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<script src="../../js/jquery.mobile.min.js"></script>
+		<script src="../../vendor/waves/waves.min.js"></script>
+		<script src="../../vendor/wow/wow.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+		<script src="../../nd2settings.js"></script>
+    </body>
+</html>

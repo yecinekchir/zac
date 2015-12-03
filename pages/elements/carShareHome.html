@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Zac eMovin | Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.css" />
+		<link rel="stylesheet" href="../../css/nativedroid2.color.blue.css" />
+				<style>
+					/* Prevent FOUC */
+					body { opacity: 0; margin:0; padding:0; }
+				</style>
+				<script>
+								 function check(){
+										if(window.localStorage.getItem("loggedIn") != 1) {
+												// Not Logged In
+												// Redirect to login page.
+												location="../../index.html";
+										}
+										else{
+												var firstName = window.localStorage.getItem("firstName");
+												var lastName = window.localStorage.getItem("lastName");
+												var email = window.localStorage.getItem("email");
+												document.getElementById("userPar").innerHTML= firstName+" "+lastName;
+												document.getElementById("userEmail").innerHTML= email;
+										}
+								}
+				</script>
+	</head>
+	<body>
+		<div data-role="page" onclick="check(), verifApi()">
+			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
+			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+				<nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
+			</div>
+			<div data-role="header" data-position="fixed" class="wow fadeIn">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
+				<h1 class="wow fadeIn">Zac eMovin</h1>
+			</div>
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" style="position:inherit;left:0;height:100%;width:100%;margin-top:-21px;">
+		      <iframe src="map.html" style="position:inherit;border:0;left:0;height:100%;width:100%;margin-top:0;"></iframe>
+			</div>
+		</div>
+        <script src="../../js/verifApi.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<script src="../../js/jquery.mobile.min.js"></script>
+		<script src="../../vendor/waves/waves.min.js"></script>
+		<script src="../../vendor/wow/wow.min.js"></script>
+		<script src="../../js/nativedroid2.js"></script>
+		<script src="../../nd2settings.js"></script>
+
+	</body>
+</html>

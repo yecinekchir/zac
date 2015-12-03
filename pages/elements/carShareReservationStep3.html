@@ -1,0 +1,157 @@
+<html>
+  <head>
+          <link rel="stylesheet" href="../../css/nativedroid2.css" />
+          <link rel="stylesheet" href="../../css/nativedroid2.color.blue.css" />
+          <link rel="stylesheet" href="../../vendor/owl/assets/owl.carousel.css">
+          <link rel="stylesheet" href="../../css/carShareReservationStep3.css">
+          <script src="../../js/carShareReservationStep3.js"></script>
+  </head>
+  <body onload="getAvailableCars()">
+      <h4 style="text-align:center;color:red;" id="availableCar"></h4>
+      <div class="owl-carousel" id="listCars" style="display:none">
+        <div id="bmwI3">
+              <div class="nd2-card">
+                <div class="card-title has-supporting-text">
+                    <h3 class="card-primary-title">I3</h3>
+                    <h5 class="card-subtitle">BMW</h5>
+                </div>
+                <div class="card-media">
+                    <img src="../../img/cars/bmw.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                </div>
+                <div class="card-supporting-text has-action">
+                    <p id="bmwSpes" style="color:#607D8B;font-size:small;text-align:center"></p>
+                </div>
+                <div id="stateBmw" style="text-align:center;display:none;">
+                  <input type="radio" class="option-input radio" name="carSelection" value="bmwSelect"  onclick="setCar(this.value)"/>
+                  <br><br><br>
+                </div>
+                <h4 style="text-align:center;color:red;" id="stateBmwText"> Not Available</h4>
+               </div>
+        </div>
+        <div id="citroenCzero">
+                <div class="nd2-card">
+                    <div class="card-title has-supporting-text">
+                        <h3 class="card-primary-title">C-Zero</h3>
+                        <h5 class="card-subtitle">Citroen</h5>
+                    </div>
+                    <div class="card-media">
+                        <img src="../../img/cars/citroen.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                    </div>
+                    <div class="card-supporting-text has-action">
+                        <p id="citroenSpes" style="color:#607D8B;"></p>
+                    </div>
+                    <div id="stateCitroen" style="text-align:center;display:none;">
+                      <input type="radio" class="option-input radio" name="carSelection" value="citroenSelect" onclick="setCar(this.value)"/>
+                      <br><br><br>
+                    </div>
+                    <h4 style="text-align:center;color:red;" id="stateCitroenText"> Not Available</h4>
+               </div>
+        </div>
+        <div id="nissanLeaf">
+              <div class="nd2-card">
+                    <div class="card-title has-supporting-text">
+                        <h3 class="card-primary-title">Leaf</h3>
+                        <h5 class="card-subtitle">Nissan</h5>
+                    </div>
+                    <div class="card-media">
+                        <img src="../../img/cars/nissan.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                    </div>
+                    <div class="card-supporting-text has-action">
+                        <p id="nissanSpes" style="color:#607D8B;"></p>
+                    </div>
+                    <div id="stateNissan" style="text-align:center;display:none;">
+                      <input type="radio" class="option-input radio" name="carSelection" value="nissanSelect" onclick="setCar(this.value)"/>
+                      <br><br><br>
+                    </div>
+                    <h4 style="text-align:center;color:red;" id="stateNissanText"> Not Available</h4>
+               </div>
+        </div>
+        <div  id="peugeotIon">
+                <div class="nd2-card">
+                    <div class="card-title has-supporting-text">
+                        <h3 class="card-primary-title">Ion</h3>
+                        <h5 class="card-subtitle">Peugeot</h5>
+                    </div>
+                    <div class="card-media">
+                        <img src="../../img/cars/peugeot.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                    </div>
+                    <div class="card-supporting-text has-action">
+                        <p id="peugeotSpes" style="color:#607D8B;font-size:small;text-align:center"></p>
+                    </div>
+                    <div id="statePeugeot" style="text-align:center;display:none;">
+                      <input type="radio" class="option-input radio" name="carSelection" value="peugeotSelect" onclick="setCar(this.value)"/>
+                      <br><br><br>
+                    </div>
+                    <h4 style="text-align:center;color:red;" id="statePeugeotText"> Not Available</h4>
+               </div>
+        </div>
+        <div id="renaultZoe">
+                <div class="nd2-card">
+                    <div class="card-title has-supporting-text">
+                        <h3 class="card-primary-title">Zoe</h3>
+                        <h5 class="card-subtitle">Renault</h5>
+                    </div>
+                    <div class="card-media">
+                        <img src="../../img/cars/renault.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                    </div>
+                    <div class="card-supporting-text has-action">
+                        <p id="renaultSpes" style="color:#607D8B;"></p>
+                    </div>
+                    <div id="stateRenault" style="text-align:center;display:none;">
+                      <input type="radio" class="option-input radio" name="carSelection" value="renaultSelect" onclick="setCar(this.value)"/>
+                      <br><br><br>
+                    </div>
+                    <h4 style="text-align:center;color:red;" id="stateRenaultText"> Not Available</h4>
+               </div>
+        </div>
+        <div id="volkswagenUp">
+                <div class="nd2-card">
+                    <div class="card-title has-supporting-text">
+                        <h3 class="card-primary-title">UP</h3>
+                        <h5 class="card-subtitle">Volkswagen</h5>
+                    </div>
+                    <div class="card-media">
+                        <img src="../../img/cars/volkswagen.png" style="max-height:150px;width:auto;display:block;margin-left:auto;margin-right:auto;">
+                    </div>
+                    <div class="card-supporting-text has-action">
+                        <p id="volkswagenSpes" style="color:#607D8B;"></p>
+                    </div>
+                    <div id="stateVolkswagen" style="text-align:center;display:none;">
+                      <input type="radio" class="option-input radio" name="carSelection" value="volkswagenSelect" onclick="setCar(this.value)"/>
+                      <br><br><br>
+                    </div>
+                    <h4 style="text-align:center;color:red;" id="stateVolkswagenText"> Not Available</h4>
+               </div>
+        </div>
+      </div>
+      <h6 style="text-align:center;color:red;" id="errorMessage"></h6>
+      <input type="button" data-rel="popup" data-transition="pop" id="btnReserve" class="ycnBTN" value="Reserve"  style="display:none;margin-right:5px; right:5px;bottom:15px;" onclick="reserve()">
+      <script src="../../js/jquery-1.11.3.min.js"></script>
+      <script src="../../vendor/owl/owl.carousel.min.js"></script>
+		<script>
+			$('.owl-carousel').owlCarousel({
+			    loop:true,
+			    margin:10,
+			    responsiveClass:true,
+			    responsive:{
+			        0:{
+			            items:1,
+			            nav:false,
+                        loop:false
+			        },
+			        600:{
+			            items:1,
+			            nav:false,
+                        loop:false
+			        },
+			        1000:{
+			            items:4,
+			            nav:false,
+			            loop:false
+			        }
+			    }
+			})
+    </script>
+  </body>
+
+</html>
