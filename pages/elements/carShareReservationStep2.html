@@ -14,7 +14,7 @@
 		<script src="../../js/jquery.mobile.min.js"></script>
         <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
         <style>
-            #map {position:fixed;width:100%;height:100%;border-radius:8px;vertical-align: bottom}
+            #map {position:fixed;top:0px;width:100%;height:100%;border-radius:8px;vertical-align: bottom}
         </style>
         <script>
              function check(){
@@ -48,16 +48,18 @@
 			<div role="main">
                 <br>
 				<div style="display:block;margin-left:auto;margin-right:auto;width:100%;">
-                    <form style="display:block;margin-left:auto;margin-right:auto;width:80%;">
-                        <label for="select-choice-1b" class="select" style="color:#607D8B">Start Station</label>
-                        <select name="select-choice-1" id="startStation" onchange="showStation(this.value)">
-                            <option selected>--</option>
-                        </select>
-                        <label for="select-choice-1b" class="select" style="color:#607D8B">End Station</label>
-                        <select name="select-choice-1" id="endStation" onchange="showStation(this.value)">
-                            <option selected>--</option>
-                        </select>
-                    </form>
+                    <div style="display:block;right:0px;top:62px;width:30%;position: absolute;z-index:100;background-color:white;border-radius:3px;border: 2px solid #2196F3;">
+                        <form style="width: 80%;display:block;margin-left:auto;margin-right:auto;">
+                            <label for="select-choice-1b" class="select" style="color:#607D8B">Start Station</label>
+                            <select name="select-choice-1" id="startStation" onchange="showStation(this.value)">
+                                <option selected>--</option>
+                            </select>
+                            <label for="select-choice-1b" class="select" style="color:#607D8B">End Station</label>
+                            <select name="select-choice-1" id="endStation" onchange="showStation(this.value)">
+                                <option selected>--</option>
+                            </select>
+                        </form>
+                    </div>
                     <h6 id="errorMessage" style="color:red;text-align:center;"></h6>
                     
                     <div class="row start-xs">

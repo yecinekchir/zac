@@ -1,7 +1,10 @@
 /**
- * Created by Yassine on 02/12/2015.
- */
+ * Created by Yassine.
+ **/
+
+
 var rideCmpt = 0;
+
 function initialize() {
     var options = {
         types: ['(regions)']

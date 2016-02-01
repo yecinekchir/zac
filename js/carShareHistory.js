@@ -1,3 +1,8 @@
+/**
+ * Created by Yassine.
+ **/
+
+
 var dataGlobal = "";
 
 /////Initialisation
@@ -110,7 +115,6 @@ function authenticate(dataReq) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          console.log(jqXHR);
           document.getElementById("listReservations").innerHTML="Data loading error : Please verify your connexion";
       }
       })
@@ -170,7 +174,6 @@ function getDetails(reservationId) {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          console.log(jqXHR);
           document.getElementsByTagName("ul")[0].innerHTML="Data loading error : Please verify your connexion";
 
       }
@@ -192,7 +195,6 @@ function cancelReservation(idCancel){
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          console.log(jqXHR);
           document.getElementsByTagName("ul")[0].innerHTML="Data loading error : Please verify your connexion";
 
       }
@@ -214,7 +216,6 @@ function deleteReservation(idCancel){
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          console.log(jqXHR);
           document.getElementsByTagName("ul")[0].innerHTML="Data loading error : Please verify your connexion";
 
       }

@@ -1,3 +1,8 @@
+/**
+ * Created by Yassine.
+ **/
+
+
 L.mapbox.accessToken = 'pk.eyJ1IjoieWtjaGlyIiwiYSI6IjQwM2U3MjMzZDk4ODY3NDBjYWJjYzAwZGM0MDI3YmVlIn0.MFM-yETlUutb9EEj3SkYjw';
 var map = L.mapbox.map('map', 'mapbox.streets').setView([49.611, 6.07], 11);
 var layerStation = L.layerGroup().addTo(map);
@@ -90,7 +95,6 @@ function showData() {
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-              console.log(jqXHR);
           }
       })
   }
@@ -120,7 +124,7 @@ function showStations() {
                     },
                     properties: {
                         title: data.stations[i].name,
-                        'marker-size': 'medium',
+                        'marker-size': 'large',
                         'marker-color': '#4CAF50',
                         'marker-symbol': 'car'
                         }
@@ -131,7 +135,6 @@ function showStations() {
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-              console.log(jqXHR);
           }
       })
   }
@@ -142,8 +145,7 @@ var tabLocation = [];
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-        console.log("non");
+    } else {
     }
 }
 //// Add user position to the map

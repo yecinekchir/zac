@@ -1,3 +1,8 @@
+/**
+ * Created by Yassine.
+ **/
+
+
 /////// summary parameters init
 $(startDate).change(function(){
 document.getElementById("startDateSum").textContent = document.getElementById("startDate").value;
@@ -139,7 +144,6 @@ $.ajax
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-        console.log(jqXHR);
     }
     })
 }
@@ -154,7 +158,6 @@ $(document).ready(function () {
     var returning = $("#endDate").val()+" "+$("#endTime").val();
     var endTime = $("#endTime").val();
     var carName = $("#carSelection").val();
-        console.log(carName);
         var carId;
         if(carName=="bwmI3"){carId = "1";}
         if(carName=="peugeotIon"){carId = "2";}
@@ -183,7 +186,6 @@ $.ajax
     success: function(data)
     {
         if(data.status==true) {
-            console.log("Hello");
             document.getElementById("reservationTitle").innerHTML = "Reservation Success";
             document.getElementById("reservationMessage").innerHTML = "Your reservation is saved";
             document.getElementById("reserveBtn").innerHTML = "Ok";
@@ -192,7 +194,6 @@ $.ajax
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-        console.log(jqXHR);
     }
     })
 }
@@ -206,7 +207,6 @@ $(document).ready(function () {
     var returning = $("#endDate").val()+" "+$("#endTime").val();
     var endTime = $("#endTime").val();
     var carName = $("#carSelection").val();
-        console.log(carName);
         var carId;
         if(carName=="bwmI3"){carId = "1";}
         if(carName=="peugeotIon"){carId = "2";}

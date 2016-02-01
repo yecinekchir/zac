@@ -1,17 +1,25 @@
+/**
+ * Created by Yassine.
+ **/
+
+
 var selectedCar = "";
+
+// function get available cars
 function getAvailableCars(){
-        selectedCar = "";
-        var departure = window.localStorage.getItem("departure");
-        var returning = window.localStorage.getItem("returning");
-        var fromId = window.localStorage.getItem("fromId");
-        var toId = window.localStorage.getItem("toId");
-        var apiKey = window.localStorage.getItem("apiKey");
-        document.getElementById("listCars").style.display="block";
-        document.getElementById("btnReserve").style.display="block";
-        var dataReq = "from="+fromId+"&to="+toId+"&departure="+departure+"&returning="+returning+"&key="+apiKey;
-        getAvailableCarsJson(dataReq);
+    selectedCar = "";
+    var departure = window.localStorage.getItem("departure");
+    var returning = window.localStorage.getItem("returning");
+    var fromId = window.localStorage.getItem("fromId");
+    var toId = window.localStorage.getItem("fromId");
+    var apiKey = window.localStorage.getItem("apiKey");
+    document.getElementById("listCars").style.display="block";
+    document.getElementById("btnReserve").style.display="block";
+    var dataReq = "from="+fromId+"&to="+toId+"&departure="+departure+"&returning="+returning+"&key="+apiKey;
+    getAvailableCarsJson(dataReq);
 }
 
+// function get available cars API
 function getAvailableCarsJson(dataReq) {
 $.ajax
 ({
@@ -23,19 +31,20 @@ $.ajax
     async: false,
     success: function(data)
     {
+        console.log(data);
         if(data.cars.length == 0){
             document.getElementById("availableCar").innerHTML = "No available car";
          }
         if(data.status==true) {
             for(i=0;i<data.cars.length;i++){
                 var manufactor = data.cars[i].type.manufacturer;
-                if(manufactor=="bmw"){
+                if(manufactor=="Bmw"){
                     document.getElementById("stateBmw").style.display="block";
                     document.getElementById("stateBmwText").style.display="none";
                     var params = "<b>Power : </b>"+data.cars[i].type.power+", <b>Battery Power : </b>"+data.cars[i].type.batteryPower+", <b>Autonomy : </b>"+data.cars[i].type.autonomy+", <b>Max Speed : </b>"+data.cars[i].type.maxSpeed+"+<br>";
                     document.getElementById("bmwSpes").innerHTML=params;
                 }
-                if(manufactor=="peugeot"){
+                if(manufactor=="Peugeot"){
                     document.getElementById("statePeugeot").style.display="block";
                     document.getElementById("statePeugeotText").style.display="none";
                     var params = "<b>Power : </b>"+data.cars[i].type.power+", <b>Battery Power : </b>"+data.cars[i].type.batteryPower+", <b>Autonomy : </b>"+data.cars[i].type.autonomy+", <b>Max Speed : </b>"+data.cars[i].type.maxSpeed+"+<br>";
@@ -48,20 +57,18 @@ $.ajax
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-        console.log(jqXHR);
     }
     })
 }
 
+// Set the car name function
 function setCar(carName){
     selectedCar = carName;
 }
 
+//function validate reservation
 function reserve(){
-    if(selectedCar == ""){
-        document.getElementById("errorMessage").innerHTML="Please Select a car";
-    }
-    else{
+    {
         document.getElementById("errorMessage").innerHTML="";
         var carId = 0;
         if(selectedCar == "bmwSelect"){
@@ -73,12 +80,14 @@ function reserve(){
         var departure = window.localStorage.getItem("departure");
         var returning = window.localStorage.getItem("returning");
         var fromId = window.localStorage.getItem("fromId");
-        var toId = window.localStorage.getItem("toId");
+        var toId = window.localStorage.getItem("fromId");
         var apiKey = window.localStorage.getItem("apiKey");
         var dataReq = "departure="+departure+"&returning="+returning+"&fromId="+fromId+"&toId="+toId+"&carId="+carId+"&key="+apiKey;
         reserveJson(dataReq);
     }  
 }
+
+//function validate reservation API
 function reserveJson(dataReq) {
     $.ajax
     ({
@@ -90,18 +99,14 @@ function reserveJson(dataReq) {
           async: false,
           success: function(data)
           {
-              if(data.status==true) {
-                    
                     var departure = window.localStorage.removeItem("departure");
                     var returning = window.localStorage.removeItem("returning");
                     var fromId = window.localStorage.removeItem("fromId");
                     var toId = window.localStorage.removeItem("toId");
                     window.top.location="carShareReservationSuccess.html";
-              }
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-              console.log(jqXHR);
           }
       })
   }

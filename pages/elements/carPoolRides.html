@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Zac eMovin | Rides</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
+    <link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
+    <link rel="stylesheet" href="../../vendor/wow/animate.css" />
+    <link rel="stylesheet" href="../../css/nativedroid2.css" />
+    <link rel="stylesheet" href="../../css/nativedroid2.color.green.css" />
+    <style>
+        /* Prevent FOUC */
+        body { opacity: 0; margin:0; padding:0; }
+    </style>
+
+</head>
+<body class="clr-accent-light-green" onload="getRides()">
+<div data-role="page" onclick="check(), verifApi()" class="nd2-no-menu-swipe">
+
+    <nd2-include data-src="../fragments/panel.left.html"></nd2-include>
+    <div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
+        <nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
+    </div>
+
+    <div data-role="header" data-position="fixed">
+        <a href="#leftpanel" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+        <h1>My Travels</h1>
+
+        <ul data-role="nd2tabs" data-swipe="true">
+            <li data-tab="reserved" data-tab-active="true">Reserved</li>
+            <li data-tab="suggested">Suggested</li>
+            <li data-tab="requests">Requests</li>
+        </ul>
+
+    </div>
+
+    <div role="main" class="ui-content" data-inset="false" style="display: block;margin-right: auto;margin-left: auto; width: 90%;">
+
+        <div data-role="nd2tab" data-tab="reserved">
+            <ul data-role="listview" data-icon="false" id="reserved"></ul>
+        </div>
+
+        <div data-role="nd2tab" data-tab="suggested">
+            <ul data-role="listview" data-icon="false" id="suggested"></ul>
+        </div>
+
+        <div data-role="nd2tab" data-tab="requests">
+            <ul data-role="listview" data-icon="false" id="requested"></ul>
+        </div>
+
+
+    </div>
+
+</div>
+</div>
+<script src="../../js/carPoolRides.js"></script>
+<script src="../../js/verifApi.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/jquery-ui.min.js"></script>
+<script src="../../js/jquery.mobile.min.js"></script>
+<script src="../../vendor/waves/waves.min.js"></script>
+<script src="../../vendor/wow/wow.min.js"></script>
+<script src="../../js/nativedroid2.js"></script>
+<script src="../../nd2settings.js"></script>
+
+</body>
+</html>

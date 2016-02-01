@@ -1,6 +1,8 @@
 /**
- * Created by Yassine on 02/12/2015.
- */
+ * Created by Yassine.
+ **/
+
+//initialisation
 function check(){
     if(window.localStorage.getItem("loggedIn") != 1) {
         // Not Logged In
@@ -15,7 +17,10 @@ function check(){
         document.getElementById("userEmail").innerHTML= email;
     }
 }
+// function previous page
 function back(){window.top.location="carPoolSuggest.html"}
+
+// get car manufacturer api
 function showData() {
     $.ajax
     ({
@@ -37,11 +42,10 @@ function showData() {
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            console.log(jqXHR);
         }
     })
 }
-
+// get car model api
 function modelLoad() {
     var manufactor = document.getElementById("carManufactor").value;
     if(manufactor == "unkown") {
@@ -68,18 +72,21 @@ function modelLoad() {
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            console.log(jqXHR);
         }
     })
 }
 
+//form verification
 function verifContent(content){
     if(content == ""){
         return false;
     }
     else return true;
 }
+
     var travelId = 1;
+
+//function validate reservation
     function validate(){
     var carManufactor = document.getElementById("carManufactor").value;
     var carModel = document.getElementById("carModel").value;
@@ -133,18 +140,16 @@ function verifContent(content){
             }
     }
     document.getElementById("loading").style.display = "block";
-        createTravel(apiKey,carManufactor,carModel,carColor,bagsOpt,breakOpt,addOpt).done(function(){
+    createTravel(apiKey,carManufactor,carModel,carColor,bagsOpt,breakOpt,addOpt).done(function(){
         // function1 is done, we can now call function2
-        console.log('function1 is done!');
-
         function2().done(function(){
             //function2 is done
             if(rideCmpt == 0){
-                createRide(apiKey,travelId,departureTravel,departureDate,arrivalTravel,arrivalDate,nbrePlaces,price,appointmentTravel);
+                createRide(apiKey,travelId,departureTravel,departureDate,arrivalTravel,arrivalDate,nbrePlaces,price,appointmentTravel,0);
             }
             else {
                 var firstRideArrivalDate = timeParse(dateTravel,timeRide[0]);
-                createRide(apiKey,travelId,departureTravel,departureDate,departureRide[0],firstRideArrivalDate,nbrePlaces,price,appointmentTravel);
+                createRide(apiKey,travelId,departureTravel,departureDate,departureRide[0],firstRideArrivalDate,nbrePlaces,price,appointmentTravel,0);
                 for(i=0;i<rideCmpt;i++){
                     var rideDepartureDate = timeParse(dateTravel,timeRide[i]);
                     if(i == rideCmpt-1){
@@ -155,50 +160,46 @@ function verifContent(content){
                         var rideDateEnd = timeParse(dateTravel,timeRide[i+1]);
                         var arrivalRide = departureRide[i+1];
                     }
-                    createRide(apiKey,travelId,departureRide[i],rideDepartureDate,arrivalRide,rideDateEnd,nbrePlaces,price,appointmentRide[i]);
+                    createRide(apiKey,travelId,departureRide[i],rideDepartureDate,arrivalRide,rideDateEnd,nbrePlaces,price,appointmentRide[i],i+1);
                 }
             }
-            document.getElementById("loading").style.display = "none";
         });
     });
-    console.log(travelId);
 }
 
+
+// function create travel
 function createTravel(apiKey,carManufactor,carModel,carColor,bagsOpt,breakOpt,addOpt){
     var dfrd1 = $.Deferred();
     var dfrd2= $.Deferred();
 
     setTimeout(function(){
         var dataRequest = "key="+ apiKey +"&carName="+ carManufactor +"&carModel="+ carModel +"&carColor="+ carColor +"&bagsAllowed="+ bagsOpt +"&breakAllowed="+ breakOpt +"&additionalOption="+ addOpt;
-        console.log(dataRequest);
         function1(dataRequest);
-        console.log('task 1 in function1 is done!');
         dfrd1.resolve();
     }, 1000);
 
     setTimeout(function(){
-        // doing more async stuff
-        console.log('task 2 in function1 is done!');
         dfrd2.resolve();
     }, 750);
 
     return $.when(dfrd1, dfrd2).done(function(){
-        console.log('both tasks in function1 are done');
         // Both asyncs tasks are done
     }).promise();
 }
 
-function createRide(apiKey,travelId,departureTravel,departureDate,arrivalTravel,arrivalDate,nbrePlaces,price,appointmentTravel){
+///function create ride
+function createRide(apiKey,travelId,departureTravel,departureDate,arrivalTravel,arrivalDate,nbrePlaces,price,appointmentTravel,rank){
     var departureCity = getCity(departureTravel);
     var departureCountry = getCountry(departureTravel);
     var arrivalCity = getCity(arrivalTravel);
     var arrivalCountry = getCountry(arrivalTravel);
-    var dataRequest = "key="+ apiKey +"&travelId="+ travelId +"&departureCity="+ departureCity +"&departureCountry="+ departureCountry +"&departureDate="+ departureDate +"&arrivalCity="+ arrivalCity +"&arrivalCountry="+ arrivalCountry +"&arrivalDate="+ arrivalDate +"&nbPlace="+ nbrePlaces +"&price="+ price +"&appointmentAddress="+ appointmentTravel;
-    console.log(dataRequest);
+    var dataRequest = "key="+ apiKey +"&travelId="+ travelId +"&departureCity="+ departureCity +"&departureCountry="+ departureCountry +"&departureDate="+ departureDate +"&arrivalCity="+ arrivalCity +"&arrivalCountry="+ arrivalCountry +"&arrivalDate="+ arrivalDate +"&nbPlace="+ nbrePlaces +"&price="+ price +"&appointmentAddress="+ appointmentTravel+"&rank="+ rank;
     function2(dataRequest);
     createRideJson(dataRequest);
 }
 
+// function create travel API
 function createTravelJson(dataRequest){
     $.ajax
     ({
@@ -210,18 +211,15 @@ function createTravelJson(dataRequest){
         async: false,
         success: function(data)
         {
-            console.log(data.travelID);
             travelId = data.travelID;
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            console.log(textStatus);
-            console.log(errorThrown);
-            console.log(jqXHR);
         }
     })
 }
 
+// function create ride API
 function createRideJson(dataRequest) {
     $.ajax
     ({
@@ -237,11 +235,11 @@ function createRideJson(dataRequest) {
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            console.log(jqXHR);
         }
     })
 }
 
+// function get city
 function getCity(place){
     var placeArray = new Array();
     var placeColumn = "";
@@ -264,6 +262,7 @@ function getCity(place){
     return placeArray[j-1];
 }
 
+//function get country
 function getCountry(place){
     var placeArray = new Array();
     var placeColumn = "";
@@ -286,6 +285,7 @@ function getCountry(place){
     return placeArray[j];
 }
 
+//function get time format
 function timeParse(date,time){
     var parsedDate = date+" "+time;
     var dateForm = new Date(parsedDate);
@@ -313,33 +313,42 @@ function timeParse(date,time){
     return dateFinal+" "+hourFinal;
 }
 
+
+// first function PROMISE for ride affection
+// Blocks all other async javascript functions
 function function1(dataRequest){
     var dfrd1 = $.Deferred();
     var dfrd2= $.Deferred();
 
     setTimeout(function(){
         createTravelJson(dataRequest);
-        console.log('task 1 in function1 is done!');
         dfrd1.resolve();
     }, 1000);
 
     setTimeout(function(){
         // doing more async stuff
-        console.log('task 2 in function1 is done!');
         dfrd2.resolve();
     }, 750);
 
     return $.when(dfrd1, dfrd2).done(function(){
-        console.log('both tasks in function1 are done');
         // Both asyncs tasks are done
     }).promise();
 }
 
+// second function PROMISE/RESOLVE for ride affectation
 function function2(){
     var dfrd1 = $.Deferred();
     setTimeout(function(){
-        console.log('task 1 in function2 is done!');
         dfrd1.resolve();
+        document.getElementById("loading").style.display = "none";
+        window.localStorage.removeItem("rideCmpt");
+        window.localStorage.removeItem("dateTravel");
+        window.localStorage.removeItem("departureTravel");
+        window.localStorage.removeItem("timeTravel");
+        window.localStorage.removeItem("appointmentTravel");
+        window.localStorage.removeItem("arrivalTravel");
+        window.localStorage.removeItem("arrivalTravelTime");
+        window.top.location = "carPoolSuggestSuccess.html";
     }, 2000);
     return dfrd1.promise();
 }

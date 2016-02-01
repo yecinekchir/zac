@@ -9,41 +9,37 @@
 		<link rel="stylesheet" href="../../css/nativedroid2.css" />
 		<link rel="stylesheet" href="../../css/nativedroid2.color.green.css" />
         <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
-        <script type="text/javascript">
-            function initialize() {
-                var options = {
-                    types: ['(cities)']
-                };
-                var input = document.getElementById('departureField');
-                var input2 = document.getElementById('arrivalField');
-                var autocomplete = new google.maps.places.Autocomplete(input , options);
-                var autocomplete = new google.maps.places.Autocomplete(input2 , options);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
         <style>
             /* Prevent FOUC */
             body { opacity: 0; margin:0; padding:0; }
-        </style>
-        <script>
-             function check(){
-                    if(window.localStorage.getItem("loggedIn") != 1) {
-                            // Not Logged In
-                            // Redirect to login page.
-                            location="../../index.html";
-                    }
-                    else{
-                            var firstName = window.localStorage.getItem("firstName");
-                            var lastName = window.localStorage.getItem("lastName");
-                            var email = window.localStorage.getItem("email");
-                            document.getElementById("userPar").innerHTML= firstName+" "+lastName;
-                            document.getElementById("userEmail").innerHTML= email;
-                    }
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: none;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 99;
+                text-align: center;
             }
-        </script>
+
+            #loading-image {
+                position: absolute;
+                top: 300px;
+                display: block;
+                margin-left: 43%;
+                margin-right: auto;
+                z-index: 100;
+            }
+        </style>
 	</head>
 	<body>
 		<div data-role="page" onclick="check(), verifApi()">
+            <div id="loading">
+                <img id="loading-image" src="../../img/466.GIF" alt="Loading..." />
+            </div>
 			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
 			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
 				<nd2-include data-src="../fragments/bottom.sheet.html"></nd2-include>
@@ -51,21 +47,28 @@
 			<div data-role="header" data-position="fixed" class="wow fadeIn">
 				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
 				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
-				<h1 class="wow fadeIn">CARPOOL</h1>
+				<h1 class="wow fadeIn">Find</h1>
 			</div>
 			<div role="main" class="ui-content wow fadeIn" data-inset="false">
                 <form style="width:95%;margin-left:auto;margin-right:auto;">
-                    <h6 id=""></h6>
                     <div id="travel">
-                        <label for="departureField">Departure:</label>
-                        <input type="text" id="departureField" data-clear-btn="true" autocomplete="on" placeholder="">
-                        <label for="arrivalField">Arrival:</label>
-                        <input type="text" id="arrivalField" data-clear-btn="true" autocomplete="on" placeholder="">
+                        <label for="departureField"> Departure : </label>
+                        <input type="text" id="departureField" data-clear-btn="true" autocomplete="on" placeholder="" value="Munich, Germany">
+                        <label for="arrivalField">Arrival : </label>
+                        <input type="text" id="arrivalField" data-clear-btn="true" autocomplete="on" placeholder="" value="Berlin, Germany">
                     </div>
-                    <label for="inputDate">Date:</label>
-                    <input type="datetime" name="inputDate" id="inputDate" value="" data-clear-btn="true" placeholder="">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <label for="inputDate"> Date : </label>
+                            <input type="date" name="inputDate" id="inputDate" data-clear-btn="true" placeholder="">
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" class="ui-btn clr-primary" onclick="testApi()">Search</a>
+                        </div>
+                    </div>
+                    <h6 id="errorMessage" style="color: red;text-align: center"></h6>
                     <br>
-                    <a href="carPoolSearchResult.html" class="ui-btn clr-primary">Search</a>
+                    <ul data-role="listview" data-icon="false" id="rechercheResult"></ul>
                 </form>
 			</div>
 		</div>
@@ -77,5 +80,6 @@
 		<script src="../../vendor/wow/wow.min.js"></script>
 		<script src="../../js/nativedroid2.js"></script>
 		<script src="../../nd2settings.js"></script>
+        <script src="../../js/carPoolSearch.js"></script>
 	</body>
 </html>

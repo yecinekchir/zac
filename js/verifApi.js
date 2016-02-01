@@ -1,3 +1,5 @@
+//session verification API
+// check the API KEY
 function verifApi(){
     var apiKey = window.localStorage.getItem("apiKey");
 $.ajax
@@ -20,8 +22,6 @@ $.ajax
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-          console.log(jqXHR);
-
       }
       })
 

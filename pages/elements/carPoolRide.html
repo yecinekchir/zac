@@ -3,6 +3,7 @@
 	<head>
 		<title>Zac eMovin | Ride Description</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 		<link rel="stylesheet" href="../../css/jquery.mobile.min.css" />
 		<link rel="stylesheet" href="../../vendor/waves/waves.min.css" />
 		<link rel="stylesheet" href="../../vendor/wow/animate.css" />
@@ -12,24 +13,8 @@
             /* Prevent FOUC */
             body { opacity: 0; margin:0; padding:0; }
         </style>
-        <script>
-             function check(){
-                    if(window.localStorage.getItem("loggedIn") != 1) {
-                            // Not Logged In
-                            // Redirect to login page.
-                            location="../../index.html";
-                    }
-                    else{
-                            var firstName = window.localStorage.getItem("firstName");
-                            var lastName = window.localStorage.getItem("lastName");
-                            var email = window.localStorage.getItem("email");
-                            document.getElementById("userPar").innerHTML= firstName+" "+lastName;
-                            document.getElementById("userEmail").innerHTML= email;
-                    }
-            }
-        </script>
 	</head>
-	<body>
+	<body onload="testLoad()">
 		<div data-role="page" onclick="check(), verifApi()">
 			<nd2-include data-src="../fragments/panel.left.html"></nd2-include>
 			<div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
@@ -38,22 +23,22 @@
 			<div data-role="header" data-position="fixed" class="wow fadeIn">
 				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
 				<a href="#bottomsheet" class="ui-btn ui-btn-right"><i class="zmdi zmdi-more-vert"></i></a>
-				<h1 class="wow fadeIn">CARPOOL RIDE</h1>
+				<h1 class="wow fadeIn">Ride</h1>
 			</div>
 			<div role="main" class="ui-content wow fadeIn" data-inset="false">
                 <div class="nd2-card">
                     <div class="card-title has-supporting-text">
-                        <h3 class="card-primary-title">Luxembourg <i class="zmdi zmdi-arrow-forward"></i> Paris</h3>
-                        <h5 class="card-subtitle">20/10/2015</h5>
-                        <h5><b>Meeting Point : </b>Gare centrale</h5>
-                        <h5><b>Meeting Time : </b>15:25</h5>
-                        <h5><b>Car Model : </b>Peugeot Ion</h5>
-                        <h5><b>Car Color : </b>White</h5>
-                        <h5><b>Number of free Places : </b>3</h5>
-                        <h5><b>Price : </b>25€</h5>
-                        <h5><b>Allow : </b>Bags, Coffee break</h5>
+                        <h3 class="card-primary-title" id="rideTitle"></h3>
+                        <h5 class="card-subtitle" id="rideDate"></h5>
+                        <h5 id="appointmentAddress"></h5>
+                        <h5 id="price"></h5>
+                        <h5 id="carType"></h5>
+                        <h5 id="carColor"></h5>
+                        <h5 id="nbPlaces"></h5>
+                        <h5 id="allowRide"></h5>
+                        <h5 id="additionalOption"></h5>
+                        <h5 id="noReservation" style="color: red"></h5>
                     </div>
-
                     <div class="card-action">
                         <div class="row between-xs">
                             <div class="col-xs-4">
@@ -63,7 +48,7 @@
                             </div>
                             <div class="col-xs-8 align-right">
                                 <div class="box">
-                                    <a href="#" class="ui-btn ui-btn-inline">Rerverve</a>
+                                    <a href="#" class="ui-btn ui-btn-inline ui-btn-raised clr-primary" onclick="reserve()" id="reserveButton">Reserve</a>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +56,7 @@
                 </div>
 			</div>
 		</div>
+        <script src="../../js/carPoolRide.js"></script>
         <script src="../../js/verifApi.js"></script>
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery-ui.min.js"></script>
